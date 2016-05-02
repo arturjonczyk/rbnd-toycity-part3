@@ -21,4 +21,13 @@ class Customer
     def self.find_by_name(name)
         @@customers.find { |product| product.name == name }
     end
+
+    # purchase product by customer
+    def purchase(product)
+        if product.stock > 0
+            Transaction.new(self, product)
+        else
+            raise OutOfStockError, "#{product.title} is out of stock."
+        end
+    end
 end
