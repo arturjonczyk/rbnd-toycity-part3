@@ -4,17 +4,12 @@ class Product
 
     @@products = []
 
-    def initialize(params)
-        @title = params[:title]
-        @price = params[:price]
-        @stock = params[:stock]
+    def initialize(options={})
+        @title = options[:title]
+        @price = options[:price]
+        @stock = options[:stock]
 
-        if @@products.map { |product| product.title}.include? @title
-            raise DuplicateProductError, "#{@title} already exists."
-        else
-            @@products << self
-        end
-
+        add_to_products
     end
 
     # returns all instances of products
@@ -35,5 +30,15 @@ class Product
     # returns true if the stock product is bigger than 0
     def in_stock?
         @stock > 0
+    end
+
+    private
+    def add_to_products
+        # if true this will throw an error: "some product title" already exists.
+        if @@products.map { |product| product.title}.include? @title
+            raise DuplicateProductError, "#{@title} already exists."
+        else
+            @@products << self
+        end
     end
 end
