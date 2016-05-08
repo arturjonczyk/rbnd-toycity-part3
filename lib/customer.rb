@@ -41,4 +41,13 @@ class Customer
             puts "Transaction ID: #{t.id} - #{t.product.title}"
         end
     end
+
+    # returning product by customer
+    def return(product)
+        # returning correct transaction
+        transaction = all_transactions.select {|t| t.product == product}.last
+
+        # deleting transaction from Transactions
+        Transaction.delete_transaction(transaction)
+    end
 end

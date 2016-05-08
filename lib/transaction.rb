@@ -22,4 +22,10 @@ class Transaction
     def self.find(id)
         @@transactions.find { |product| product.id == id }
     end
+
+    # deleting transaction and updating stock
+    def self.delete_transaction(transaction)
+        @@transactions.delete_if {|t| t.id == transaction.id}
+        transaction.product.stock += 1
+    end
 end
