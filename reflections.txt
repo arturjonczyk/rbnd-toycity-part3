@@ -1,0 +1,18 @@
+1. How long did you spend working on this project?
+About 10 hours.
+
+2.What was the most rewarding challenge you conquered?
+It was the implementation of the return product method by the Client.
+While working on this, I was pushed to use several different ruby bloks.
+Thanks to this experience I understood how extremely important is to know when, and how, to use this part of the language.
+
+3. What two additional features did you build? Why?
+a. Added possibility to display all transaction by customer.
+Because I think it's pretty important feature for the customer.
+Also seemed to me interesting, given the fact that customer data has been drawn from the transaction.
+
+b. Added possibility to return product by customer
+I added this possibility because in my opinion this is essential feature to any kind of commerce solution.
+
+4. Where do you still have room to grow?
+Object oriented design. Under what circumstances and which objects should interact with each other in a non-invasive way.
