@@ -4,12 +4,7 @@ class Customer
 
     def initialize(params)
         @name = params[:name]
-
-        if @@customers.map { |customer| customer.name}.include? @name
-            raise DuplicateProductError, "#{@name} already exists."
-        else
-            @@customers << self
-        end
+        add_to_customers
     end
 
     # returns all instances of customers
@@ -49,5 +44,14 @@ class Customer
 
         # deleting transaction from Transactions
         Transaction.delete_transaction(transaction)
+    end
+
+    private
+    def add_to_customers
+        if @@customers.map { |customer| customer.name}.include? @name
+            raise DuplicateProductError, "#{@name} already exists."
+        else
+            @@customers << self
+        end
     end
 end
