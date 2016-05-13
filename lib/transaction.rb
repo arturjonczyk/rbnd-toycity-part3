@@ -7,7 +7,7 @@ class Transaction
     def initialize(customer, product)
         @customer = customer
         @product = product
-        @product.stock -= 1
+        @product.depletes_stock
         @id = @@id
         @@id += 1
         @@transactions << self
@@ -25,7 +25,7 @@ class Transaction
 
     # deleting transaction and updating stock
     def self.delete_transaction(transaction)
-        @@transactions.delete_if {|t| t.id == transaction.id}
-        transaction.product.stock += 1
+        @@transactions.delete_if { |t| t.id == transaction.id }
+        transaction.product.add_stock
     end
 end

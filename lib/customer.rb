@@ -2,8 +2,8 @@ class Customer
     attr_reader :name
     @@customers = []
 
-    def initialize(params)
-        @name = params[:name]
+    def initialize(options = {})
+        @name = options[:name]
         add_to_customers
     end
 
@@ -19,16 +19,12 @@ class Customer
 
     # purchase product by customer
     def purchase(product)
-        if product.stock > 0
-            Transaction.new(self, product)
-        else
-            raise OutOfStockError, "#{product.title} is out of stock."
-        end
+        Transaction.new(self, product)
     end
 
     # returning all transactions done by customer
     def all_transactions
-        Transaction.all.select { |t| t.customer.name == @name}
+        Transaction.all.select { |t| t.customer.name == @name }
     end
 
     def display_all_transactions
@@ -40,16 +36,17 @@ class Customer
     # returning product by customer
     def return(product)
         # returning correct transaction
-        transaction = all_transactions.select {|t| t.product == product}.last
+        transaction = all_transactions.select { |t| t.product == product }.last
 
         # deleting transaction from Transactions
         Transaction.delete_transaction(transaction)
     end
 
     private
+
     def add_to_customers
-        if @@customers.map { |customer| customer.name}.include? @name
-            raise DuplicateProductError, "#{@name} already exists."
+        if @@customers.map(&:name).include? @name
+            raise DuplicateCustomerError, "#{@name} already exists."
         else
             @@customers << self
         end
